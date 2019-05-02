@@ -18,7 +18,7 @@ services:
     depends_on:
       - php-fpm
     ports:
-      - "8081:80"
+      - "80:80"
       - "443:443"
   mariadb:
     build:
