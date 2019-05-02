@@ -1,0 +1,35 @@
+version: '3'
+services:
+  php-fpm:
+    build:
+      context: ./php-fpm
+    volumes:
+      - ../app:/var/www:rw
+    links:
+      - mariadb
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - ../app:/var/www:rw
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - php-fpm
+    ports:
+      - "8081:80"
+      - "443:443"
+  mariadb:
+    build:
+      context: ./database
+    environment:
+      - MYSQL_DATABASE=vest_quickcommerce
+      - MYSQL_USER=vestracing
+      - MYSQL_PASSWORD=quickcommerce
+      - MYSQL_ROOT_PASSWORD=quickcommerce
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./database/qcdb-phobulous.sql:/docker-entrypoint-initdb.d/data.sql:rw
+    #ports:
+    #  - "3306:3306"
