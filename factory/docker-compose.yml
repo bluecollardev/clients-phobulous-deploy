@@ -1,0 +1,36 @@
+version: '3'
+services:
+  php-apache:
+    build: ../images/php-apache
+    links:
+      - maria-db:db-host
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      # Mount the workspace directory, where we clone the projects and assemble our images
+      - ./workspace:/tmp/workspace:rw
+      # Mount the output directory
+      - ./volume-qc:/var/www/html:rw
+    env_file:
+      # Configure database user and shop admin user / pw
+      - shop-config.env
+    tty: true
+    # Run the workspace setup script
+    #command: 'bash /tmp/workspace/setup.sh'
+  maria-db:
+    build:
+      context: ../images/maria-db
+    env_file:
+      - shop-config.env
+    # Configure via shop-config.env instead
+    #environment:
+    #  - MYSQL_DATABASE=quickcommerce
+    #  - MYSQL_USER=qc-user
+    #  - MYSQL_PASSWORD=v@der!4201986
+    #  - MYSQL_ROOT_PASSWORD=v@der!4201986
+    #  - ALLOW_EMPTY_PASSWORD=yes
+    #volumes:
+    #  - ./volume-db:/var/lib/db-data
+    volumes:
+      - ../images/maria-db/qcdb-phobulous.sql:/docker-entrypoint-initdb.d/data.sql:rw
