@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/html/config.php';
+require __DIR__ . '/upload/config.php';
 
 $dbUpdater = new DbUpdater();
 

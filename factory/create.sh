@@ -24,6 +24,7 @@ mkdir -p "${DIR}/volume-db"
 
 rm -rf ${OC_PATH}
 rm -rf ${QK_MODS_PATH}
+
 # Clone a fresh copy of OpenCart
 echo "Cloning into directory ${OC_PATH}"
 # TODO: Re-clone projects
@@ -44,7 +45,7 @@ git clone --depth 1 https://github.com/bluecollardev/quickcommerce.git ${QK_PKG_
 cd ${OC_PATH}
 
 # Install frontend submodule and fetch the submodule files
-# TODO: A var for the theme and repo path!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# TODO: A var for the theme and repo path!
 git clone --depth 1 https://github.com/bluecollardev/clients-phobulous-theme ${FRONTEND_PKG_NAME}
 # Create build directory for frontend files, this is where webpack will put the static output files
 mkdir -p ${OC_PATH}/upload/staging
@@ -62,8 +63,8 @@ cp ${IMAGES_PATH}/php-apache/default-files.tar.gz ${IMAGES_PATH}/php-apache/file
 cp ${IMAGES_PATH}/maria-db/default-data.tar.gz ${IMAGES_PATH}/maria-db/data.tar.gz
 
 # Build QuickCommerce
-docker-compose build php-apache maria-db
-docker-compose stop maria-db
+#docker-compose build php-apache maria-db
+#docker-compose stop maria-db
 
 # Cleanup mysql files
 #rm -rf ${DIR}/volume-db/ib_*

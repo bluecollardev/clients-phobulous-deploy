@@ -37,8 +37,8 @@ cp ${IMAGES_PATH}/php-apache/default-files.tar.gz ${IMAGES_PATH}/php-apache/file
 cp ${IMAGES_PATH}/maria-db/default-data.tar.gz ${IMAGES_PATH}/maria-db/data.tar.gz
 
 # Build QuickCommerce
-docker-compose build php-apache maria-db
-docker-compose stop maria-db
+#docker-compose build php-apache maria-db
+#ocker-compose stop maria-db
 
 # Create and move artifacts
 echo "Build tarballs"
@@ -72,3 +72,5 @@ docker-compose rm -f --all
 # Set cwd to original dir
 cd ${DIR}
 
+docker-compose down
+docker-compose up --build
