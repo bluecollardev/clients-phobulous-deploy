@@ -61,6 +61,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) zip \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y \
+        nano \
+    && rm -rf /var/lib/apt/lists/*
+
 # Add setup/start scripts
 COPY wait_for_service.sh /wait_for_service.sh
 COPY entrypoint.sh /entrypoint.sh
@@ -89,6 +93,19 @@ RUN chown -R www-data:www-data /var/www/html
 #RUN echo "List application files"
 #RUN ls -la /var/www/html
 
+WORKDIR /var/www/html
+
+# Install composer
+RUN echo "Install composer"
+
+RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
+  && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
+  # Make sure we're installing what we think we're installing!
+  && php -r "if (hash('SHA384', file_get_contents('/tmp/composer-setup.php')) !== trim(file_get_contents('/tmp/composer-setup.sig'))) { unlink('/tmp/composer-setup.php'); echo 'Invalid installer' . PHP_EOL; exit(1); }" \
+  && php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer --snapshot \
+  && rm -f /tmp/composer-setup.*
+
+RUN export COMPOSER_ALLOW_SUPERUSER=1; composer show;
 
 # Install via CLI
 # TODO: Modify cli_install script to use quickcommerce source DB
@@ -116,11 +133,12 @@ RUN echo "Install OpenCart via CLI"
 #                               --https_server https://$VIRTUAL_HOST/
 
 RUN echo "Update application config using php script"
-RUN php /var/www/html/update_shop_config.php
+RUN php update_shop_config.php
 RUN echo "Shop config updated"
-RUN cat /var/www/html/upload/config.php
+RUN cat upload/config.php
 
 RUN echo "Start apache2 server"
-CMD ["apache2-foreground"]
+ENTRYPOINT ["/entrypoint.sh"]
+#CMD ["apache2-foreground"]
 
-EXPOSE 80
+#EXPOSE 80

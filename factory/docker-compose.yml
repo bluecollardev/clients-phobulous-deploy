@@ -18,7 +18,7 @@ services:
       - maria-db
     ports:
       - '80:80'
-      - '443:443'
+      #- '443:443'
     volumes:
       # Mount the workspace directory, where we clone the projects and assemble our images
       - ./workspace:/tmp/workspace:rw

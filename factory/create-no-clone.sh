@@ -38,7 +38,7 @@ cp ${IMAGES_PATH}/maria-db/default-data.tar.gz ${IMAGES_PATH}/maria-db/data.tar.
 
 # Build QuickCommerce
 #docker-compose build php-apache maria-db
-#ocker-compose stop maria-db
+#docker-compose stop maria-db
 
 # Create and move artifacts
 echo "Build tarballs"
@@ -49,14 +49,25 @@ echo "Copy OpenCart files"
 cp -r ${OC_PATH}/. ${DIR}/volume-qc
 # Merge in QuickCommerce mods for OpenCart
 echo "Merge in mods"
-cp -r ${QK_MODS_PATH}/* ${DIR}/volume-qc/upload
+cp -rf ${QK_MODS_PATH}/* ${DIR}/volume-qc
 
 echo "Update permissions"
 chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc
 chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-db
 
+# Install composer packages
+#echo "Install composer packages"
+#cat composer.json
+#composer install -vvv
+#ls -la vendor/
+
+# Set cwd to original dir
+cd ${DIR}
+
 # TODO: Fix this later
 echo "Archive source files"
+echo "Dump composer config"
+cat ${OC_PATH}/composer.json
 tar czf files.tar.gz -C ${DIR}/volume-qc .
 tar czf data.tar.gz -C ${DIR}/volume-db .
 echo "Update archive permissions"
@@ -64,10 +75,6 @@ chown ${USER:=$(/usr/bin/id -run)} *.tar.gz
 echo "Move archives to respective image dirs"
 mv ${DIR}/files.tar.gz ${IMAGES_PATH}/php-apache
 mv ${DIR}/data.tar.gz ${IMAGES_PATH}/maria-db
-
-# Clear builds
-echo "Clear builds"
-docker-compose rm -f --all
 
 # Set cwd to original dir
 cd ${DIR}

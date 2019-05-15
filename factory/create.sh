@@ -30,10 +30,12 @@ echo "Cloning into directory ${OC_PATH}"
 # TODO: Re-clone projects
 git clone --depth 1 -b ${SHOP_VERSION} https://github.com/opencart/opencart.git ${OC_PATH}
 chown ${USER:=$(/usr/bin/id -run)} ${QC_PATH} #chown ${USER:=$(/usr/bin/id -run)}:$USER ${DIR}/workspace/quickcommerce
-echo "Install composer packages"
-cd ${OC_PATH}
+
 # Install composer packages
-composer install
+echo "Install composer and packages"
+cd ${OC_PATH}
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+composer install -vvv
 
 # Go to the vendor folder and pull in the quickcommerce (PHP lib) submodule
 cd ${VENDOR_PATH}

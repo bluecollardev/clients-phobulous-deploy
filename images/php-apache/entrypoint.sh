@@ -11,5 +11,10 @@
 echo "Update shop config"
 php /var/www/update_shop_config.php
 
+# Install packages
+echo "Install composer packages"
+composer install --no-scripts
+
 echo "Start apache2 server"
 exec apache2-foreground
+exec "$@"
