@@ -61,6 +61,19 @@ chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-db
 #composer install -vvv
 #ls -la vendor/
 
+echo "Copy images, we need to consolidate img and image/catalog paths into a single dir..."
+mkdir -p ${DIR}/volume-qc/upload/image/catalog/products
+cp -rf ${DIR}/volume-qc/frontend/static/img/products/* ${DIR}/volume-qc/upload/image/catalog/products
+
+# Set cwd to frontend dir
+cd ${DIR}/volume-qc/frontend
+
+# Build frontend
+yarn run install-pkgs
+yarn run install-github-pkgs
+
+webpack
+
 # Set cwd to original dir
 cd ${DIR}
 
