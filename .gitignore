@@ -1,1 +1,7 @@
 .idea
+factory/_backup
+factory/volume-db
+factory/volume-qc
+factory/workspace/*
+images/php-apache/files.tar.gz
+images/maria-db/data.tar.gz

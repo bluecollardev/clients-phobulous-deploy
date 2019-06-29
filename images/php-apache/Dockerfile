@@ -74,8 +74,26 @@ RUN chmod +x /*.sh
 RUN echo "Unzip application"
 RUN mkdir -p /var/www/html
 ADD files.tar.gz /var/www/html
-RUN echo "Copy shop config"
+
+RUN echo "Update permissions"
+RUN chown -R www-data:www-data /var/www/html
+
+RUN echo "Copy shop config files"
 COPY ./update_shop_config.php /var/www/html/update_shop_config.php
+# OpenCart hasn't been installed yet, so config files won't exist
+# Copy them over to our workdir
+COPY ./config/config.php /var/www/html/upload/config.php
+COPY ./config/admin/config.php /var/www/html/upload/admin/config.php
+# Copy other configurable files
+COPY ./config/.htaccess /var/www/html/upload/.htaccess
+COPY ./config/php.ini /var/www/html/upload/php.ini
+COPY ./config/admin/php.ini /var/www/html/upload/admin/php.ini
+
+RUN echo "Update permissions again"
+# TODO: Only update permissions on files that we added
+RUN chown -R www-data:www-data /var/www/html
+
+RUN ls -la /var/www/html/upload
 
 # TODO: Move this chunk to bash script
 #if [ -n "${DOWNLOAD_PLUGIN}" ]; then
@@ -86,9 +104,6 @@ COPY ./update_shop_config.php /var/www/html/update_shop_config.php
 
 # docker-compose depends_on should handle this, this was just moved from the entrypoint script
 #RUN /wait_for_service.sh ${MYSQL_HOST} 3306
-
-RUN echo "Update permissions"
-RUN chown -R www-data:www-data /var/www/html
 
 #RUN echo "List application files"
 #RUN ls -la /var/www/html

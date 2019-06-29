@@ -23,7 +23,8 @@ services:
       # Mount the workspace directory, where we clone the projects and assemble our images
       - ./workspace:/tmp/workspace:rw
       # Mount the output directory
-      - ./volume-qc:/var/www/html:rw
+      # Not necessary, files are zipped into files.tar.gz as part of factory creation process
+      #- ./volume-qc:/var/www/temp:rw
     env_file:
       # Configure database user and shop admin user / pw
       - shop-config.env
