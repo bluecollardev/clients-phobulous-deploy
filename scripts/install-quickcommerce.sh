@@ -6,3 +6,5 @@ sudo apt-get install nodejs
 
 # Install yarn and webpack
 npm install -g yarn
+yarn add global webpack@3.8.1
+
