@@ -66,6 +66,12 @@ cp -r ${OC_PATH}/. ${DIR}/volume-qc
 echo "Merge in mods"
 cp -rf ${QK_MODS_PATH}/* ${DIR}/volume-qc
 
+# Create missing OpenCart dirs
+mkdir -p ${DIR}/volume-qc/upload/system/logs
+mkdir -p ${DIR}/volume-qc/upload/system/cache
+chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc/upload/system/logs
+chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc/upload/system/cache
+
 # Update temp dir file permissions
 echo "Update permissions"
 chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc
