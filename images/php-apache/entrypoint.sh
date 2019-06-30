@@ -15,6 +15,8 @@
 echo "Install composer packages"
 composer install --no-scripts
 
+ls -la /var/www/html/upload/
+
 echo "Start apache2 server"
 exec apache2-foreground
 exec "$@"
