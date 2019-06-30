@@ -1,7 +1,8 @@
-# Install on Ubuntu
-mkdir -p /var/repos
-cd /var/repos
-git clone https://github.com/firebrandsolutions/quickcommerce-oc.git quickcommerce-api-src
-cd quickcommerce-api-repos/docker
-# At this point update docker-compose to expose port 80 if prod
-docker-compose up --build
+# Install node
+sudo apt-get install curl python-software-properties
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+
+sudo apt-get install nodejs
+
+# Install yarn and webpack
+npm install -g yarn

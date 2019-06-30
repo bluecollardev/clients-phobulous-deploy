@@ -121,3 +121,4 @@ cd ${DIR}
 
 docker-compose down
 docker-compose up --build
+
