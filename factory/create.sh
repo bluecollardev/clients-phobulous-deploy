@@ -74,7 +74,7 @@ chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc/upload/system/cache
 
 # Create php info file... todo: leave these lines commented out!
 touch ${DIR}/volume-qc/upload/info.php
-echo "<?php echo phpinfo()" > ${DIR}/volume-qc/upload/info.php
+echo "<?php echo phpinfo();" > ${DIR}/volume-qc/upload/info.php
 
 # Update temp dir file permissions
 echo "Update permissions"
