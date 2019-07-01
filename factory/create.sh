@@ -72,6 +72,10 @@ mkdir -p ${DIR}/volume-qc/upload/system/cache
 chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc/upload/system/logs
 chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc/upload/system/cache
 
+# Create php info file... todo: leave these lines commented out!
+touch ${DIR}/volume-qc/upload/info.php
+echo "<?php echo phpinfo()" > info.php
+
 # Update temp dir file permissions
 echo "Update permissions"
 chown -R ${USER:=$(/usr/bin/id -run)} ${DIR}/volume-qc
@@ -86,12 +90,9 @@ cp -rf ${DIR}/volume-qc/frontend/static/img/products/* ${DIR}/volume-qc/upload/i
 cd ${DIR}/volume-qc/frontend
 
 # Build frontend
-yarn run install-pkgs
-yarn run install-github-pkgs
-webpack
-
-# Delete node_modules from frontend package
-rm -rf node_modules
+yarn run install-pkgs &&
+yarn run install-github-pkgs &&
+webpack && rm -rf node_modules
 
 # Set cwd to original dir
 cd ${DIR}
