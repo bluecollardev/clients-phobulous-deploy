@@ -88,6 +88,9 @@ COPY ./config/admin/config.php /var/www/html/upload/admin/config.php
 COPY ./config/.htaccess /var/www/html/upload/.htaccess
 COPY ./config/php.ini /var/www/html/upload/php.ini
 COPY ./config/admin/php.ini /var/www/html/upload/admin/php.ini
+# Copy php.ini and update memory limit
+COPY /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+RUN sed -i 's/memory_limit = 128M/memory_limit = 512M/' /usr/local/etc/php/php.ini
 
 RUN echo "Update permissions again"
 # TODO: Only update permissions on files that we added
