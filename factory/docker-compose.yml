@@ -22,6 +22,7 @@ services:
     volumes:
       # Mount the workspace directory, where we clone the projects and assemble our images
       - ./workspace:/tmp/workspace:rw
+      - ../images/php-apache/php.ini:/usr/local/etc/php/php.ini
       # Mount the output directory
       # Not necessary, files are zipped into files.tar.gz as part of factory creation process
       #- ./volume-qc:/var/www/temp:rw
