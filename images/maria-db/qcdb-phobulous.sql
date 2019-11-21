@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `qcdb_phobulous` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `qcdb_phobulous`;
+CREATE DATABASE  IF NOT EXISTS `quickcommerce` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `quickcommerce`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: qcdb_phobulous
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `category_products`;
 /*!50001 DROP VIEW IF EXISTS `category_products`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `category_products` AS SELECT 
+/*!50001 CREATE VIEW `category_products` AS SELECT
  1 AS `category_id`,
  1 AS `category_name`,
  1 AS `category_parent_id`,
@@ -8487,7 +8487,7 @@ DROP TABLE IF EXISTS `qc_view_category`;
 /*!50001 DROP VIEW IF EXISTS `qc_view_category`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `qc_view_category` AS SELECT 
+/*!50001 CREATE VIEW `qc_view_category` AS SELECT
  1 AS `category_id`,
  1 AS `image`,
  1 AS `parent_id`,
