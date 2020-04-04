@@ -5,7 +5,7 @@ services:
       context: ../images/php-apache
       args:
         - MYSQL_DATABASE=quickcommerce
-          - MYSQL_ROOT_PASSWORD=v@der!4201986
+        - MYSQL_ROOT_PASSWORD=v@der!4201986
         - MYSQL_USER=qc-user
         - MYSQL_PASSWORD=v@der!4201986
         - SHOP_ADMIN_USER=admin
