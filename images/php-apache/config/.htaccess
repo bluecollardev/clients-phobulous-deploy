@@ -18,6 +18,10 @@ RewriteEngine On
 # If your opencart installation does not run on the main web folder make sure you folder it does run in ie. / becomes /shop/
 RewriteBase /
 
+# Force www:
+RewriteCond %{HTTP_HOST} ^phobulousedmonton.com [NC]
+RewriteRule ^(.*)$ http://www.phobulousedmonton.com/$1 [L,R=301,NC]
+
 # CORS
 #Header always set Access-Control-Allow-Origin "*"
 #Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT, PATCH"
