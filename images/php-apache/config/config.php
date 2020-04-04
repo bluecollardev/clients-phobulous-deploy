@@ -1,9 +1,9 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://phobulousedmonton.com/');
+define('HTTP_SERVER', 'http://www.phobulousedmonton.com/');
 
 // HTTPS
-define('HTTPS_SERVER', 'http://phobulousedmonton.com/');
+define('HTTPS_SERVER', 'http://www.phobulousedmonton.com/');
 
 // DIR
 define('DIR_APPLICATION', '/var/www/html/upload/catalog/');
